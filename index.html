@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://vpic.nhtsa.dot.gov; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://vpic.nhtsa.dot.gov; font-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="no-referrer">
 <title>Car Loan Interest Deduction VIN Lookup: Does My Car Qualify?</title>
 <meta name="description" content="Paste your VIN to see if your car passes the US-assembly, weight and type tests for the 2025–2028 car loan interest deduction, then estimate your deduction.">
@@ -12,8 +12,17 @@
 <meta property="og:description" content="Check the VIN part of the car loan interest deduction in one step, then estimate what you can deduct.">
 <meta property="og:url" content="https://car.loopnode.live/">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="LoopNode">
+<meta property="og:image" content="https://car.loopnode.live/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LoopNode car loan check: a VIN result with three passing checks and an estimated deduction.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0f766e">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
 <script type="module" src="app.js"></script>
 <script type="application/ld+json">
@@ -33,133 +42,233 @@
 </script>
 </head>
 <body>
+<svg class="sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15 9-6 6M9 9l6 6"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 4.2 2.8 17.5a2 2 0 0 0 1.7 3h15a2 2 0 0 0 1.7-3L13.7 4.2a2 2 0 0 0-3.4 0Z"/><path d="M12 9.5v4M12 17h.01"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-.9.8-.9 1.5v.4M12 17h.01"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4.5M12 8h.01"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24"><path d="M7 9V4h10v5"/><rect x="4" y="9" width="16" height="7" rx="2"/><path d="M7 14h10v6H7z"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+  <symbol id="i-factory" viewBox="0 0 24 24"><path d="M3 20V10l6 3.5V10l6 3.5V5l6-1v16Z"/><path d="M7 17h2M12 17h2"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 4v16M7 20h10M5 7h14"/><path d="m5 7-2.5 6a2.5 2.5 0 0 0 5 0L5 7M19 7l-2.5 6a2.5 2.5 0 0 0 5 0L19 7"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24"><path d="M5 16v-4l1.8-4.6A2 2 0 0 1 8.7 6h6.6a2 2 0 0 1 1.9 1.4L19 12v4"/><rect x="3" y="12" width="18" height="5" rx="1.5"/><path d="M6 17v2M18 17v2M7 14.5h.01M17 14.5h.01"/></symbol>
+  <symbol id="i-calc" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8.5 7h7M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01M8.5 15.5h.01M12 15.5h.01M15.5 15.5h.01"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+</svg>
 <a class="skip" href="#tool">Skip to the VIN check</a>
-<header class="site">
-  <a class="brand" href="./">Does My Car Qualify?</a>
-  <nav aria-label="Site"><a href="#guide">How it works</a> <a href="about.html">About</a> <a href="privacy.html">Privacy</a></nav>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="./"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" class="logo-bg"/><circle cx="14" cy="17" r="7" class="logo-loop"/><circle cx="21" cy="10" r="3.6" class="logo-node"/></svg><span class="wordmark">LoopNode</span><span class="product">Car loan check</span></a>
+    <nav class="site-nav" aria-label="Site"><a class="nav-optional" href="#how-it-works">How it works</a><a href="#faq">FAQ</a><a href="about.html">About</a></nav>
+  </div>
 </header>
 
 <main>
-  <div class="intro">
-    <h1>Car loan interest deduction VIN lookup</h1>
-    <p class="lede">Does my car qualify? Paste your VIN. We check where it was built, its weight rating and its type against the final regulations. Then answer a few questions and estimate your deduction for tax years 2025–2028.</p>
-  </div>
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Tax years 2025–2028 · New, US-assembled vehicles</p>
+      <h1>Car loan interest deduction VIN lookup</h1>
+      <p class="lede">Does my car qualify? Paste your VIN. We check where it was built, its weight rating and its type against the final regulations. Then answer a few questions and estimate your deduction for tax years 2025–2028.</p>
+      <ul class="chips" aria-label="About this check">
+        <li class="chip"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>Based on final regulations T.D. 10054</li>
+        <li class="chip"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>Rules checked Sep 2026</li>
+        <li class="chip"><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg>Nothing stored</li>
+      </ul>
+    </div>
+  </section>
 
-  <section id="tool" aria-labelledby="tool-h">
+  <section id="tool" class="container tool" aria-labelledby="tool-h">
     <h2 id="tool-h" class="visually-hidden">VIN check</h2>
-    <noscript><p class="note">This checker needs JavaScript. The guide below explains every rule if you'd rather check by hand.</p></noscript>
+    <noscript><p class="alert alert-warn">This checker needs JavaScript. The guide below explains every rule if you'd rather check by hand.</p></noscript>
 
     <form id="vin-form" class="card" novalidate>
+      <div class="card-head"><span class="step-num" aria-hidden="true">1</span><h3 class="card-title">Check your VIN</h3></div>
       <label for="vin">Your 17-character VIN</label>
-      <div class="row">
-        <input id="vin" name="vin" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="24" aria-describedby="vin-hint vin-status" required>
-        <button type="submit" id="vin-go">Check my car</button>
+      <div class="vin-row">
+        <div class="input-wrap input-vin"><svg class="icon affix-icon" aria-hidden="true"><use href="#i-search"/></svg><input id="vin" name="vin" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="24" placeholder="e.g. 1GNS6NKD3TR388255" aria-describedby="vin-hint vin-status" required></div>
+        <button type="submit" id="vin-go" class="btn btn-primary"><span class="spinner" aria-hidden="true" hidden></span>Check my car</button>
       </div>
       <p id="vin-hint" class="hint">It's on your loan contract, registration, insurance card, or at the base of the windshield. Only the VIN is sent, to NHTSA's free VIN lookup.</p>
       <p id="vin-status" class="status" role="status" aria-live="polite"></p>
+      <div id="vin-actions" class="vin-actions" hidden>
+        <button type="button" id="retry" class="btn btn-secondary">Try again</button>
+        <button type="button" id="manual-open" class="btn btn-link">Enter vehicle details manually</button>
+      </div>
+      <div id="manual" class="manual" hidden>
+        <h4>Enter vehicle details manually</h4>
+        <p class="hint">For when the VIN lookup is down or doesn't know your car. Next you'll read the final assembly point on the window sticker and the GVWR on the door-jamb label.</p>
+        <label for="manual-type">Vehicle type</label>
+        <select id="manual-type" aria-describedby="manual-type-error">
+          <option value="">Choose a type…</option>
+          <option value="car">Car</option>
+          <option value="suv">SUV</option>
+          <option value="pickup">Pickup truck</option>
+          <option value="minivan">Minivan</option>
+          <option value="van">Van</option>
+          <option value="motorcycle">Motorcycle</option>
+        </select>
+        <p id="manual-type-error" class="field-error" hidden></p>
+        <button type="button" id="manual-go" class="btn btn-primary">Use these details</button>
+      </div>
     </form>
 
-    <div id="vehicle" class="card" hidden>
-      <h3 id="vehicle-name">Your vehicle</h3>
-      <ul id="checks" class="checks"></ul>
-      <p id="trap" class="note" hidden></p>
-      <div id="label-gvwr-row" class="ask" hidden>
-        <label for="label-gvwr">GVWR on your door-jamb label (lb)</label>
-        <input id="label-gvwr" type="number" inputmode="numeric" min="0" max="100000" step="1">
-        <p class="hint">It's on the sticker in the driver-side door frame, marked "GVWR". Exactly 14,000 lb does not qualify.</p>
-      </div>
-      <fieldset id="sticker-row" class="ask" hidden>
-        <legend>Does the window sticker give a final assembly point in the US?</legend>
-        <label><input type="radio" name="sticker" value="yes"> Yes</label>
-        <label><input type="radio" name="sticker" value="no"> No</label>
-      </fieldset>
-      <div id="s179" class="s179">
-        <h4>For business buyers: Section 179 "over 6,000 lb" check</h4>
-        <p id="s179-text"></p>
-      </div>
-    </div>
 
     <form id="questions" class="card" hidden novalidate>
-      <h3>What the VIN can't show</h3>
+      <div class="card-head"><span class="step-num" aria-hidden="true">2</span><h3 class="card-title">What the VIN can't show</h3></div>
       <p class="hint">Answer these from your loan papers.</p>
-      <fieldset><legend>Do your loan papers treat the car as <strong>new</strong>? (Not used, not a lease buyout.)</legend>
-        <label><input type="radio" name="newOnPaperwork" value="yes"> Yes</label><label><input type="radio" name="newOnPaperwork" value="no"> No</label></fieldset>
-      <fieldset><legend>When you took the loan, did you expect <strong>more than 50% personal use</strong>?</legend>
-        <label><input type="radio" name="personalUse" value="yes"> Yes</label><label><input type="radio" name="personalUse" value="no"> No</label></fieldset>
-      <fieldset><legend>Is the loan <strong>secured by the car</strong> (a first lien)? A credit card or unsecured personal loan is not.</legend>
-        <label><input type="radio" name="securedByCar" value="yes"> Yes</label><label><input type="radio" name="securedByCar" value="no"> No</label></fieldset>
-      <fieldset><legend>Did you take the loan <strong>after 31 December 2024</strong>?</legend>
-        <label><input type="radio" name="loanAfter2024" value="yes"> Yes</label><label><input type="radio" name="loanAfter2024" value="no"> No</label></fieldset>
-      <fieldset><legend>Is it a <strong>purchase loan</strong>, not a lease?</legend>
-        <label><input type="radio" name="notLease" value="yes"> Yes</label><label><input type="radio" name="notLease" value="no"> No</label></fieldset>
-      <fieldset><legend>Is the lender <strong>not a relative</strong> or a business related to you?</legend>
-        <label><input type="radio" name="notRelative" value="yes"> Yes</label><label><input type="radio" name="notRelative" value="no"> No</label></fieldset>
+      <fieldset class="q"><legend>Do your loan papers treat the car as <strong>new</strong>? (Not used, not a lease buyout.)</legend>
+        <div class="seg" role="presentation"><label><input type="radio" name="newOnPaperwork" value="yes"><span>Yes</span></label><label><input type="radio" name="newOnPaperwork" value="no"><span>No</span></label></div></fieldset>
+      <fieldset class="q"><legend>When you took the loan, did you expect <strong>more than 50% personal use</strong>?</legend>
+        <div class="seg" role="presentation"><label><input type="radio" name="personalUse" value="yes"><span>Yes</span></label><label><input type="radio" name="personalUse" value="no"><span>No</span></label></div></fieldset>
+      <fieldset class="q"><legend>Is the loan <strong>secured by the car</strong> (a first lien)? A credit card or unsecured personal loan is not.</legend>
+        <div class="seg" role="presentation"><label><input type="radio" name="securedByCar" value="yes"><span>Yes</span></label><label><input type="radio" name="securedByCar" value="no"><span>No</span></label></div></fieldset>
+      <fieldset class="q"><legend>Did you take the loan <strong>after Dec 31, 2024</strong>?</legend>
+        <div class="seg" role="presentation"><label><input type="radio" name="loanAfter2024" value="yes"><span>Yes</span></label><label><input type="radio" name="loanAfter2024" value="no"><span>No</span></label></div></fieldset>
+      <fieldset class="q"><legend>Is it a <strong>purchase loan</strong>, not a lease?</legend>
+        <div class="seg" role="presentation"><label><input type="radio" name="notLease" value="yes"><span>Yes</span></label><label><input type="radio" name="notLease" value="no"><span>No</span></label></div></fieldset>
+      <fieldset class="q"><legend>Is the lender <strong>not a relative</strong> or a business related to you?</legend>
+        <div class="seg" role="presentation"><label><input type="radio" name="notRelative" value="yes"><span>Yes</span></label><label><input type="radio" name="notRelative" value="no"><span>No</span></label></div></fieldset>
     </form>
 
-    <div id="verdict" class="card verdict" role="status" aria-live="polite" hidden></div>
-
     <form id="calc" class="card" hidden novalidate>
-      <h3>Estimate your deduction</h3>
+      <div class="card-head"><span class="step-num" aria-hidden="true">3</span><h3 class="card-title">Estimate your deduction</h3></div>
       <div class="grid">
-        <label>Tax year <select id="year"><option>2025</option><option selected>2026</option><option>2027</option><option>2028</option></select></label>
-        <label>Interest paid that year ($) <input id="interest" type="number" inputmode="decimal" min="0" step="0.01" aria-describedby="interest-hint"></label>
+        <div class="field"><label for="year">Tax year</label><select id="year"><option>2025</option><option selected>2026</option><option>2027</option><option>2028</option></select></div>
+        <div class="field"><label for="interest">Interest paid that year</label><div class="input-wrap"><span class="affix" aria-hidden="true">$</span><input id="interest" type="text" inputmode="decimal" autocomplete="off" aria-describedby="interest-hint"></div><p id="interest-error" class="field-error" hidden></p></div>
       </div>
       <p id="interest-hint" class="hint">Use box 1 of your Form 1098-VLI. No form yet? Estimate it here:</p>
-      <details id="estimator">
+      <details id="estimator" class="estimator">
         <summary class="plain">Estimate the interest from my loan terms</summary>
         <div class="grid">
-          <label>Amount financed ($) <input id="est-amount" type="number" inputmode="decimal" min="0" step="0.01"></label>
-          <label>APR (%) <input id="est-apr" type="number" inputmode="decimal" min="0" max="40" step="0.01"></label>
-          <label>Term (months) <input id="est-term" type="number" inputmode="numeric" min="1" max="120" step="1"></label>
-          <label>First payment (month) <input id="est-first" type="month"></label>
+          <div class="field"><label for="est-amount">Amount financed</label><div class="input-wrap"><span class="affix" aria-hidden="true">$</span><input id="est-amount" type="text" inputmode="decimal" autocomplete="off"></div><p id="est-amount-error" class="field-error" hidden></p></div>
+          <div class="field"><label for="est-apr">APR</label><div class="input-wrap"><input id="est-apr" type="number" inputmode="decimal" min="0" max="40" step="0.01"><span class="affix affix-end" aria-hidden="true">%</span></div></div>
+          <div class="field"><label for="est-term">Term</label><div class="input-wrap"><input id="est-term" type="number" inputmode="numeric" min="1" max="120" step="1"><span class="affix affix-end" aria-hidden="true">months</span></div></div>
+          <div class="field"><label for="est-first">First payment (month)</label><input id="est-first" type="month" aria-describedby="est-first-hint"><p id="est-first-hint" class="hint">Format YYYY-MM, e.g. 2026-02.</p></div>
         </div>
-        <button type="button" id="est-go" class="secondary">Use this estimate</button>
+        <button type="button" id="est-go" class="btn btn-secondary">Use this estimate</button>
         <p id="est-out" class="hint" aria-live="polite"></p>
       </details>
       <div class="grid">
-        <label>Total amount financed ($) <input id="financed" type="number" inputmode="decimal" min="0" step="0.01"></label>
-        <label>Down payment ($) <input id="down" type="number" inputmode="decimal" min="0" step="0.01" value="0"></label>
-        <label>Negative equity and other non-car items rolled in ($) <input id="nonq" type="number" inputmode="decimal" min="0" step="0.01" value="0" aria-describedby="nonq-hint"></label>
+        <div class="field"><label for="financed">Total amount financed</label><div class="input-wrap"><span class="affix" aria-hidden="true">$</span><input id="financed" type="text" inputmode="decimal" autocomplete="off"></div><p id="financed-error" class="field-error" hidden></p></div>
+        <div class="field"><label for="down">Down payment</label><div class="input-wrap"><span class="affix" aria-hidden="true">$</span><input id="down" type="text" inputmode="decimal" autocomplete="off" value="0"></div><p id="down-error" class="field-error" hidden></p></div>
+        <div class="field"><label for="nonq">Negative equity and other non-car items rolled in</label><div class="input-wrap"><span class="affix" aria-hidden="true">$</span><input id="nonq" type="text" inputmode="decimal" autocomplete="off" value="0" aria-describedby="nonq-hint"></div><p id="nonq-error" class="field-error" hidden></p></div>
       </div>
       <p id="nonq-hint" class="hint">Negative equity from a trade-in, a trailer, non-credit insurance, cash back. Warranties, service plans, GAP, sales tax and title fees <em>do</em> count as part of the car.</p>
       <label class="check"><input id="refi" type="checkbox"> This loan refinanced an earlier car loan</label>
       <div id="refi-row" class="grid" hidden>
-        <label>Old loan balance when refinanced ($) <input id="refi-old" type="number" inputmode="decimal" min="0" step="0.01"></label>
-        <label>New loan amount ($) <input id="refi-new" type="number" inputmode="decimal" min="0" step="0.01"></label>
+        <div class="field"><label for="refi-old">Old loan balance when refinanced</label><div class="input-wrap"><span class="affix" aria-hidden="true">$</span><input id="refi-old" type="text" inputmode="decimal" autocomplete="off"></div><p id="refi-old-error" class="field-error" hidden></p></div>
+        <div class="field"><label for="refi-new">New loan amount</label><div class="input-wrap"><span class="affix" aria-hidden="true">$</span><input id="refi-new" type="text" inputmode="decimal" autocomplete="off"></div><p id="refi-new-error" class="field-error" hidden></p></div>
       </div>
       <div class="grid">
-        <label>Business use of the car (%) <input id="business" type="number" inputmode="numeric" min="0" max="49" step="1" value="0"></label>
-        <label>Modified AGI ($) <input id="magi" type="number" inputmode="decimal" step="1" aria-describedby="magi-hint"></label>
-        <label class="check"><input id="joint" type="checkbox"> Married filing jointly</label>
+        <div class="field"><label for="business">Business use of the car</label><div class="input-wrap"><input id="business" type="number" inputmode="numeric" min="0" max="49" step="1" value="0"><span class="affix affix-end" aria-hidden="true">%</span></div><p id="business-error" class="field-error" hidden></p></div>
+        <div class="field"><label for="magi">Modified AGI</label><div class="input-wrap"><span class="affix" aria-hidden="true">$</span><input id="magi" type="text" inputmode="decimal" autocomplete="off" aria-describedby="magi-hint"></div><p id="magi-error" class="field-error" hidden></p><p id="magi-hint" class="hint">Your adjusted gross income, plus any foreign earned income or US-territory income you excluded.</p></div>
       </div>
-      <p id="magi-hint" class="hint">Your adjusted gross income, plus any foreign earned income or US-territory income you excluded.</p>
-      <div id="calc-out" class="result" role="status" aria-live="polite"></div>
+      <label class="check"><input id="joint" type="checkbox"> Married filing jointly</label>
     </form>
 
-    <p id="print-row" hidden><button type="button" id="print">Print a summary for your tax preparer</button></p>
+    <aside id="result-panel" class="result-panel" aria-labelledby="result-h">
+      <h2 id="result-h" class="visually-hidden">Your result</h2>
+      <div id="result-empty" class="panel-card empty">
+        <svg class="empty-art" viewBox="0 0 160 96" aria-hidden="true"><rect x="8" y="14" width="144" height="70" rx="14" class="art-card"/><rect x="22" y="30" width="70" height="8" rx="4" class="art-line"/><rect x="22" y="46" width="52" height="8" rx="4" class="art-line"/><rect x="22" y="62" width="60" height="8" rx="4" class="art-line"/><circle cx="118" cy="50" r="20" class="art-dot"/><path d="m109 50 6 6 12-13" class="art-tick"/></svg>
+        <p class="empty-title">Your result appears here</p>
+        <p class="hint">Paste your VIN to check where the car was built, its weight rating and its type. Then answer six questions and add your loan figures.</p>
+      </div>
+      <div id="result-error" class="panel-card panel-error" hidden>
+        <svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>
+        <p class="empty-title">We couldn't look up this VIN</p>
+        <p id="result-error-text" class="hint"></p>
+        <div class="vin-actions"><button type="button" class="btn btn-secondary js-retry">Try again</button><button type="button" class="btn btn-link js-manual">Enter vehicle details manually</button></div>
+      </div>
+      <div id="result-loading" class="skeleton" hidden>
+        <p class="visually-hidden">Looking up your VIN…</p>
+        <span class="sk sk-verdict"></span>
+        <div class="panel-card sk-card"><span class="sk sk-kicker"></span><span class="sk sk-figure"></span><span class="sk sk-row"></span><span class="sk sk-row"></span><span class="sk sk-row"></span></div>
+        <div class="panel-card sk-card"><span class="sk sk-kicker"></span><span class="sk sk-title"></span><span class="sk sk-row"></span><span class="sk sk-row"></span></div>
+      </div>
+      <div id="verdict" class="verdict reveal" role="status" aria-live="polite" hidden></div>
+      <div id="vehicle-ask" class="vehicle-ask reveal" hidden>
+        <div id="trap" class="alert alert-info" hidden></div>
+        <div id="label-gvwr-row" class="ask" hidden>
+          <label for="label-gvwr">GVWR on your door-jamb label (lb)</label>
+          <div class="input-wrap"><input id="label-gvwr" type="number" inputmode="numeric" min="0" max="100000" step="1" aria-describedby="label-gvwr-hint"><span class="affix affix-end" aria-hidden="true">lb</span></div>
+          <p id="label-gvwr-hint" class="hint">It's on the sticker in the driver-side door frame, marked "GVWR". Exactly 14,000 lb does not qualify.</p>
+        </div>
+        <fieldset id="sticker-row" class="ask" hidden>
+          <legend>Does the window sticker give a final assembly point in the US?</legend>
+          <div class="seg" role="presentation"><label><input type="radio" name="sticker" value="yes"><span>Yes</span></label><label><input type="radio" name="sticker" value="no"><span>No</span></label></div>
+        </fieldset>
+      </div>
+      <div id="calc-out" class="panel-card deduction reveal" role="status" aria-live="polite" hidden></div>
+      <div id="trust" class="trust" hidden>
+        <p class="trust-title"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>How we calculate</p>
+        <p>Rules from the final regulations <a href="https://www.federalregister.gov/documents/2026/09/08/2026-18219/car-loan-interest-deduction" rel="noopener">T.D. 10054</a> (26 CFR §1.163-16); vehicle facts from NHTSA's VIN lookup. <a href="#rules">See every rule and its source</a>.</p>
+        <p class="trust-by">Updated Sep 29, 2026 · LoopNode</p>
+      </div>
+      <div id="vehicle" class="panel-card reveal" hidden>
+        <p id="vehicle-kicker" class="panel-kicker">Vehicle from NHTSA's VIN lookup</p>
+        <h3 id="vehicle-name">Your vehicle</h3>
+        <ul id="checks" class="checks"></ul>
+      </div>
+      <details id="s179" class="s179" hidden>
+        <summary class="plain">For business buyers: Section 179 "over 6,000 lb" check</summary>
+        <p id="s179-text"></p>
+      </details>
+      <div id="print-row" class="print-row" hidden>
+        <button type="button" id="print" class="btn btn-secondary"><svg class="icon" aria-hidden="true"><use href="#i-print"/></svg>Print or save as PDF</button>
+        <button type="button" id="copy" class="btn btn-secondary"><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>Copy result</button>
+      </div>
+    </aside>
   </section>
 
-  <div class="ad-slot ad-slot-top" aria-hidden="true"></div>
+  <div class="container content">
+    <div class="ad-slot ad-slot-top" aria-hidden="true"></div>
+    <aside class="rail" aria-label="On this page">
+      <div class="rail-inner">
+        <p class="rail-title">On this page</p>
+        <nav aria-label="Contents"><ol class="rail-toc">
+          <li><a href="#how-it-works">What this checker does</a></li>
+          <li><a href="#rules">The rules, with their source</a></li>
+          <li><a href="#limits">What it can't tell you</a></li>
+          <li><a href="#example">Worked example</a></li>
+          <li><a href="#section-179">Section 179 and 6,000 lb</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#sources">Sources</a></li>
+        </ol></nav>
+        <p class="rail-title">More LoopNode tools</p>
+        <ul class="rail-tools">
+          <li><a href="https://taqaud.loopnode.live/"><span lang="ar" dir="rtl">حاسبة التقاعد</span> · Saudi retirement estimator</a></li>
+          <li><a href="https://loopnode.live/">All LoopNode tools</a></li>
+        </ul>
+        <p class="rail-updated"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>Updated Sep 29, 2026 · rules from T.D. 10054</p>
+      </div>
+    </aside>
 
-  <article id="guide">
-    <h2>How the car loan interest deduction works</h2>
+    <article id="guide">
+    <h2 class="guide-title">How the car loan interest deduction works</h2>
     <p>From 2025 through 2028 you can deduct up to $10,000 a year of interest on a loan for a new car, SUV, pickup, van, minivan or motorcycle. The vehicle must have had its final assembly in the United States. You don't need to itemize. Most of the rules are about the loan and how you use the car. Three of them are about the vehicle, and your VIN can answer those three.</p>
 
     <section id="how-it-works">
       <h3>What this checker does</h3>
       <p>When you press <em>Check my car</em>, your browser sends the VIN to the free VIN decoder run by the National Highway Traffic Safety Administration (NHTSA), the lookup the Treasury and the IRS name in the final regulations. It reads back three fields and applies the rules:</p>
-      <ol>
-        <li><strong>Plant of manufacture.</strong> The rule lets you rely on "the vehicle's plant of manufacture as reported in the VIN." A plant in the United States passes. Anywhere else fails.</li>
-        <li><strong>Gross vehicle weight rating (GVWR).</strong> It must be <em>less than</em> 14,000 lb. The lookup gives a weight class, not an exact number, so a Class 3 truck (10,001–14,000 lb) needs one more look at the door-jamb label.</li>
-        <li><strong>Vehicle type.</strong> Car, minivan, van, SUV, pickup or motorcycle. We map NHTSA's body type to these six. Anything unclear is marked for review, never passed.</li>
+      <ol class="steps">
+        <li><span class="step-icon"><svg class="icon" aria-hidden="true"><use href="#i-factory"/></svg></span><p><strong>Plant of manufacture.</strong> The rule lets you rely on "the vehicle's plant of manufacture as reported in the VIN." A plant in the United States passes. Anywhere else fails.</p></li>
+        <li><span class="step-icon"><svg class="icon" aria-hidden="true"><use href="#i-scale"/></svg></span><p><strong>Gross vehicle weight rating (GVWR).</strong> It must be <em>less than</em> 14,000 lb. The lookup gives a weight class, not an exact number, so a Class 3 truck (10,001–14,000 lb) needs one more look at the door-jamb label.</p></li>
+        <li><span class="step-icon"><svg class="icon" aria-hidden="true"><use href="#i-car"/></svg></span><p><strong>Vehicle type.</strong> Car, minivan, van, SUV, pickup or motorcycle. We map NHTSA's body type to these six. Anything unclear is marked for review, never passed.</p></li>
       </ol>
       <p>Then you answer the questions a VIN can't settle. The calculator applies the $10,000 cap, the income phase-out and the refinancing and negative-equity rules. Your answers and numbers stay in your browser.</p>
     </section>
 
     <section id="rules">
       <h3>The rules, with their source</h3>
-      <p>Everything here comes from the final regulations, T.D. 10054, published in the Federal Register on 8 September 2026 (26 CFR §1.163-16), checked 29 September 2026.</p>
-      <div class="table-wrap">
+      <p>Everything here comes from the final regulations, T.D. 10054, published in the Federal Register on Sep 8, 2026 (26 CFR §1.163-16), checked Sep 29, 2026.</p>
+      <div class="table-wrap card-flat">
       <table>
         <thead><tr><th scope="col">Test</th><th scope="col">Rule</th><th scope="col">Section</th></tr></thead>
         <tbody>
@@ -167,8 +276,8 @@
           <tr><td>Weight</td><td>GVWR less than 14,000 lb</td><td>§1.163-16(e)(1)(vi)</td></tr>
           <tr><td>New</td><td>Original use starts with you; the loan papers treat it as new</td><td>§1.163-16(e)(2)</td></tr>
           <tr><td>Personal use</td><td>You expected more than 50% personal use when you took the loan</td><td>§1.163-16(f)</td></tr>
-          <tr><td>Loan</td><td>Taken after 31 Dec 2024, secured by a first lien on the car, not a lease, not from a related party</td><td>§1.163-16(c), (d)</td></tr>
-          <tr><td>Cap</td><td>$10,000 per return, whatever your filing status</td><td>§1.163-16(h)(1)</td></tr>
+          <tr><td>Loan</td><td>Taken after Dec 31, 2024, secured by a first lien on the car, not a lease, not from a related party</td><td>§1.163-16(c), (d)</td></tr>
+          <tr><td>Cap</td><td>$10,000 per return, regardless of filing status</td><td>§1.163-16(h)(1)</td></tr>
           <tr><td>Phase-out</td><td>Minus $200 for each $1,000 (or part of $1,000) of modified AGI over $100,000 ($200,000 joint)</td><td>§1.163-16(h)(2)</td></tr>
           <tr><td>VIN on return</td><td>You must report the VIN on your tax return</td><td>§1.163-16(c)(5)</td></tr>
         </tbody>
@@ -185,11 +294,11 @@
         <li>The interest estimate uses a standard monthly schedule. Your lender accrues interest daily, so use the Form 1098-VLI figure when you have it.</li>
         <li>This is an estimate, not tax advice. The IRS, or your tax preparer applying the rules to your full return, gives the binding answer.</li>
       </ul>
-      <p><strong>The first-character trap.</strong> Some sites say a VIN starting with 1, 4 or 5 means "made in the USA". That character only shows the region the maker's code belongs to. The rule uses the plant. We found the same model built in two countries (Tucson, Civic, Silverado, RAV4), so we always read the plant.</p>
-      <p><strong>Heavy-duty pickups.</strong> Many heavy-duty pickups, including every 2026 Ford F-450 pickup according to Ford's own spec sheet, are rated at exactly 14,000 lb. That is not <em>less than</em> 14,000, so they don't qualify. The VIN lookup only says "Class 3: 10,001–14,000 lb", so we ask for the label figure.</p>
+      <div class="alert alert-info"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg><div><p><strong>The first-character trap.</strong> Some sites say a VIN starting with 1, 4 or 5 means "made in the USA". That character only shows the region the maker's code belongs to. The rule uses the plant. We found the same model built in two countries (Tucson, Civic, Silverado, RAV4), so we always read the plant.</p></div></div>
+      <div class="alert alert-warn"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><div><p><strong>Heavy-duty pickups.</strong> Many heavy-duty pickups, including every 2026 Ford F-450 pickup according to Ford's own spec sheet, are rated at exactly 14,000 lb. That is not <em>less than</em> 14,000, so they don't qualify. The VIN lookup only says "Class 3: 10,001–14,000 lb", so we ask for the label figure.</p></div></div>
     </section>
 
-    <section id="example">
+    <section id="example" class="example card-flat">
       <h3>Worked example</h3>
       <p>A single filer with a modified AGI of $112,400 buys a new Chevrolet Tahoe built in Arlington, Texas (Class 2F, 7,001–8,000 lb). The price with tax and fees is $68,000. The trade-in carries $3,000 of negative equity, and the buyer puts $2,000 down, so the loan is $69,000.</p>
       <ul>
@@ -200,7 +309,7 @@
       </ul>
     </section>
 
-    <section id="section-179">
+    <section id="section-179" class="card-flat">
       <h3>Section 179 and the "over 6,000 lb" rule</h3>
       <p>Business buyers ask a different question about the same number. A vehicle rated at 6,000 lb or less is a "passenger automobile" under 26 U.S.C. §280F(d)(5), with yearly depreciation caps. Heavier SUVs, pickups and vans escape those caps. Section 179 still limits heavy SUVs to $31,300 (2025) or $32,000 (2026) under §179(b)(5). Pickups with a bed of at least 6 feet inside, and some cargo vans, are outside that cap. The weight classes in the VIN lookup line up with 6,000 lb exactly, so the checker answers this too. Section 179 needs more than 50% business use, the opposite of the car loan deduction.</p>
     </section>
@@ -220,22 +329,45 @@
     <section id="sources">
       <h3>Sources</h3>
       <ul class="sources">
-        <li><a href="https://www.federalregister.gov/documents/2026/09/08/2026-18219/car-loan-interest-deduction" rel="noopener">Car Loan Interest Deduction, final regulations, T.D. 10054, 91 FR 57214 (8 Sep 2026)</a>, checked 29 September 2026</li>
-        <li><a href="https://vpic.nhtsa.dot.gov/api/" rel="noopener">NHTSA vPIC VIN decoder API</a>, checked 29 September 2026</li>
-        <li><a href="https://www.law.cornell.edu/uscode/text/26/280F" rel="noopener">26 U.S.C. §280F</a> and <a href="https://www.law.cornell.edu/uscode/text/26/179" rel="noopener">§179</a>, checked 29 September 2026</li>
-        <li><a href="https://www.irs.gov/pub/irs-drop/rp-24-40.pdf" rel="noopener">Rev. Proc. 2024-40</a> and <a href="https://www.irs.gov/pub/irs-drop/rp-25-32.pdf" rel="noopener">Rev. Proc. 2025-32</a> (SUV cap amounts), checked 29 September 2026</li>
+        <li><a href="https://www.federalregister.gov/documents/2026/09/08/2026-18219/car-loan-interest-deduction" rel="noopener">Car Loan Interest Deduction, final regulations, T.D. 10054, 91 FR 57214 (Sep 8, 2026)<svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a>, checked Sep 29, 2026</li>
+        <li><a href="https://vpic.nhtsa.dot.gov/api/" rel="noopener">NHTSA vPIC VIN decoder API<svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a>, checked Sep 29, 2026</li>
+        <li><a href="https://www.law.cornell.edu/uscode/text/26/280F" rel="noopener">26 U.S.C. §280F<svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a> and <a href="https://www.law.cornell.edu/uscode/text/26/179" rel="noopener">§179<svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a>, checked Sep 29, 2026</li>
+        <li><a href="https://www.irs.gov/pub/irs-drop/rp-24-40.pdf" rel="noopener">Rev. Proc. 2024-40<svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a> and <a href="https://www.irs.gov/pub/irs-drop/rp-25-32.pdf" rel="noopener">Rev. Proc. 2025-32<svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a> (SUV cap amounts), checked Sep 29, 2026</li>
       </ul>
     </section>
   </article>
 
-  <div class="ad-slot ad-slot-bottom" aria-hidden="true"></div>
+    <section class="related" aria-labelledby="related-h">
+      <h2 id="related-h">More LoopNode tools</h2>
+      <div class="related-grid">
+        <a class="tool-card" href="https://taqaud.loopnode.live/"><span class="tool-name" lang="ar" dir="rtl">حاسبة التقاعد</span><span class="tool-desc">Saudi retirement date and pension estimator under the 2024 rules, in Arabic.</span><span class="tool-go">taqaud.loopnode.live<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+        <a class="tool-card" href="https://loopnode.live/"><span class="tool-name">All LoopNode tools</span><span class="tool-desc">Small, sourced calculators, each on its own site.</span><span class="tool-go">loopnode.live<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      </div>
+    </section>
+
+    <div class="ad-slot ad-slot-bottom" aria-hidden="true"></div>
+  </div>
 
   <section id="summary" class="print-only" aria-hidden="true"></section>
 </main>
 
-<footer class="site">
-  <p>Not affiliated with the IRS, the Treasury or NHTSA. Results are estimates, not tax advice. Rules checked 29 September 2026.</p>
-  <p><a href="about.html">About</a> · <a href="privacy.html">Privacy</a> · <a href="contact.html">Contact</a></p>
+<section id="result-bar" class="result-bar" aria-label="Result summary" hidden>
+  <div class="bar-text"><span class="bar-vehicle"></span><span class="bar-status"></span></div>
+  <button type="button" class="btn btn-primary bar-view">View result</button>
+</section>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a class="brand" href="./"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" class="logo-bg"/><circle cx="14" cy="17" r="7" class="logo-loop"/><circle cx="21" cy="10" r="3.6" class="logo-node"/></svg><span class="wordmark">LoopNode</span></a>
+      <p>Small tools that show their sources. One job per site.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer"><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a><a href="https://loopnode.live/">loopnode.live</a></nav>
+    <p class="fine">Not affiliated with the IRS, the Treasury or NHTSA. Results are estimates, not tax advice. Rules checked Sep 29, 2026.</p>
+    <p class="fine">© 2026 LoopNode</p>
+  </div>
 </footer>
 </body>
 </html>

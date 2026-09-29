@@ -3,23 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; font-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="no-referrer">
 <title>Privacy — Does My Car Qualify?</title>
 <meta name="description" content="What this site does with your VIN and your numbers: the VIN goes to NHTSA's lookup; everything else stays in your browser.">
 <link rel="canonical" href="https://car.loopnode.live/privacy.html">
+<meta name="theme-color" content="#0f766e">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="site">
-  <a class="brand" href="./">Does My Car Qualify?</a>
-  <nav aria-label="Site"><a href="./#guide">How it works</a> <a href="about.html">About</a> <a href="privacy.html">Privacy</a></nav>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="./"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" class="logo-bg"/><circle cx="14" cy="17" r="7" class="logo-loop"/><circle cx="21" cy="10" r="3.6" class="logo-node"/></svg><span class="wordmark">LoopNode</span><span class="product">Car loan check</span></a>
+    <nav class="site-nav" aria-label="Site"><a class="nav-optional" href="./#how-it-works">How it works</a><a href="./#faq">FAQ</a><a href="about.html">About</a></nav>
+  </div>
 </header>
-<main class="prose">
+<main class="container prose">
 <h1>Privacy</h1>
-<p>Last updated 29 September 2026.</p>
+<p>Last updated Sep 29, 2026.</p>
 <h2>What leaves your browser</h2>
 <p><strong>Only your VIN</strong>, and only when you press <em>Check my car</em>. Your browser sends it straight to the VIN decoder run by the National Highway Traffic Safety Administration (NHTSA) at vpic.nhtsa.dot.gov. It is not sent to us. We send no referrer, so NHTSA doesn't learn which page you came from. NHTSA's handling of requests is covered by its own privacy policy.</p>
 <p>Your answers to the questions, your loan figures and your income never leave your browser. There is no account, no form that submits to a server, and no database. The page's security policy blocks it from contacting any other site.</p>
@@ -32,9 +37,16 @@
 <h2>Contact</h2>
 <p>Questions about privacy: see the <a href="contact.html">contact page</a>.</p>
 </main>
-<footer class="site">
-  <p>Not affiliated with the IRS, the Treasury or NHTSA. Results are estimates, not tax advice. Rules checked 29 September 2026.</p>
-  <p><a href="about.html">About</a> · <a href="privacy.html">Privacy</a> · <a href="contact.html">Contact</a></p>
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a class="brand" href="./"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" class="logo-bg"/><circle cx="14" cy="17" r="7" class="logo-loop"/><circle cx="21" cy="10" r="3.6" class="logo-node"/></svg><span class="wordmark">LoopNode</span></a>
+      <p>Small tools that show their sources. One job per site.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer"><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a><a href="https://loopnode.live/">loopnode.live</a></nav>
+    <p class="fine">Not affiliated with the IRS, the Treasury or NHTSA. Results are estimates, not tax advice. Rules checked Sep 29, 2026.</p>
+    <p class="fine">© 2026 LoopNode</p>
+  </div>
 </footer>
 </body>
 </html>
