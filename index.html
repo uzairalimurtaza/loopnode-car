@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://vpic.nhtsa.dot.gov; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Car Loan Interest Deduction VIN Lookup: Does My Car Qualify?</title>
+<meta name="description" content="Paste your VIN to see if your car passes the US-assembly, weight and type tests for the 2025–2028 car loan interest deduction, then estimate your deduction.">
+<link rel="canonical" href="https://car.loopnode.live/">
+<meta property="og:title" content="Car Loan Interest Deduction VIN Lookup: Does My Car Qualify?">
+<meta property="og:description" content="Check the VIN part of the car loan interest deduction in one step, then estimate what you can deduct.">
+<meta property="og:url" content="https://car.loopnode.live/">
+<meta property="og:type" content="website">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+<script type="module" src="app.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Does My Car Qualify? Car loan interest deduction VIN lookup","url":"https://car.loopnode.live/","applicationCategory":"FinanceApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Checks a VIN against the plant, weight and vehicle-type tests of the qualified passenger vehicle loan interest deduction (26 CFR 1.163-16) and estimates the deduction."}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Does the first character of the VIN tell me if my car was built in the USA?","acceptedAnswer":{"@type":"Answer","text":"No. The first character shows the region of the maker's code. The deduction uses the plant of manufacture reported in the VIN, which the NHTSA lookup returns separately."}},
+{"@type":"Question","name":"My truck's weight rating is exactly 14,000 lb. Does it qualify?","acceptedAnswer":{"@type":"Answer","text":"No. The vehicle must have a gross vehicle weight rating of less than 14,000 pounds. A 14,000 lb truck, such as many heavy-duty pickups, does not qualify."}},
+{"@type":"Question","name":"Do used cars qualify for the car loan interest deduction?","acceptedAnswer":{"@type":"Answer","text":"No. The original use of the vehicle has to start with you, and your loan papers have to treat it as a new vehicle."}},
+{"@type":"Question","name":"Can I take the deduction if I don't itemize?","acceptedAnswer":{"@type":"Answer","text":"Yes. The deduction is allowed whether you itemize or take the standard deduction."}},
+{"@type":"Question","name":"Where do I find how much interest I paid?","acceptedAnswer":{"@type":"Answer","text":"On Form 1098-VLI. Lenders that receive $600 or more of interest must send it by January 31 of the following year. Otherwise use your loan statements."}},
+{"@type":"Question","name":"What happens if I refinance my car loan?","acceptedAnswer":{"@type":"Answer","text":"The new loan still qualifies if it is secured by the same car, but only up to the balance of the old loan on the day you refinanced. Interest on any cash-out part does not count."}},
+{"@type":"Question","name":"Which tax years does the deduction cover?","acceptedAnswer":{"@type":"Answer","text":"Tax years 2025 through 2028, for loans taken out after December 31, 2024."}},
+{"@type":"Question","name":"Can I use Section 179 and the car loan interest deduction on the same vehicle?","acceptedAnswer":{"@type":"Answer","text":"Not in the same way at the same time. The car loan deduction needs more than 50% personal use; Section 179 on a vehicle needs more than 50% business use."}}
+]}
+</script>
+</head>
+<body>
+<a class="skip" href="#tool">Skip to the VIN check</a>
+<header class="site">
+  <a class="brand" href="./">Does My Car Qualify?</a>
+  <nav aria-label="Site"><a href="#guide">How it works</a> <a href="about.html">About</a> <a href="privacy.html">Privacy</a></nav>
+</header>
+
+<main>
+  <div class="intro">
+    <h1>Car loan interest deduction VIN lookup</h1>
+    <p class="lede">Does my car qualify? Paste your VIN. We check where it was built, its weight rating and its type against the final regulations. Then answer a few questions and estimate your deduction for tax years 2025–2028.</p>
+  </div>
+
+  <section id="tool" aria-labelledby="tool-h">
+    <h2 id="tool-h" class="visually-hidden">VIN check</h2>
+    <noscript><p class="note">This checker needs JavaScript. The guide below explains every rule if you'd rather check by hand.</p></noscript>
+
+    <form id="vin-form" class="card" novalidate>
+      <label for="vin">Your 17-character VIN</label>
+      <div class="row">
+        <input id="vin" name="vin" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="24" aria-describedby="vin-hint vin-status" required>
+        <button type="submit" id="vin-go">Check my car</button>
+      </div>
+      <p id="vin-hint" class="hint">It's on your loan contract, registration, insurance card, or at the base of the windshield. Only the VIN is sent, to NHTSA's free VIN lookup.</p>
+      <p id="vin-status" class="status" role="status" aria-live="polite"></p>
+    </form>
+
+    <div id="vehicle" class="card" hidden>
+      <h3 id="vehicle-name">Your vehicle</h3>
+      <ul id="checks" class="checks"></ul>
+      <p id="trap" class="note" hidden></p>
+      <div id="label-gvwr-row" class="ask" hidden>
+        <label for="label-gvwr">GVWR on your door-jamb label (lb)</label>
+        <input id="label-gvwr" type="number" inputmode="numeric" min="0" max="100000" step="1">
+        <p class="hint">It's on the sticker in the driver-side door frame, marked "GVWR". Exactly 14,000 lb does not qualify.</p>
+      </div>
+      <fieldset id="sticker-row" class="ask" hidden>
+        <legend>Does the window sticker give a final assembly point in the US?</legend>
+        <label><input type="radio" name="sticker" value="yes"> Yes</label>
+        <label><input type="radio" name="sticker" value="no"> No</label>
+      </fieldset>
+      <div id="s179" class="s179">
+        <h4>For business buyers: Section 179 "over 6,000 lb" check</h4>
+        <p id="s179-text"></p>
+      </div>
+    </div>
+
+    <form id="questions" class="card" hidden novalidate>
+      <h3>What the VIN can't show</h3>
+      <p class="hint">Answer these from your loan papers.</p>
+      <fieldset><legend>Do your loan papers treat the car as <strong>new</strong>? (Not used, not a lease buyout.)</legend>
+        <label><input type="radio" name="newOnPaperwork" value="yes"> Yes</label><label><input type="radio" name="newOnPaperwork" value="no"> No</label></fieldset>
+      <fieldset><legend>When you took the loan, did you expect <strong>more than 50% personal use</strong>?</legend>
+        <label><input type="radio" name="personalUse" value="yes"> Yes</label><label><input type="radio" name="personalUse" value="no"> No</label></fieldset>
+      <fieldset><legend>Is the loan <strong>secured by the car</strong> (a first lien)? A credit card or unsecured personal loan is not.</legend>
+        <label><input type="radio" name="securedByCar" value="yes"> Yes</label><label><input type="radio" name="securedByCar" value="no"> No</label></fieldset>
+      <fieldset><legend>Did you take the loan <strong>after 31 December 2024</strong>?</legend>
+        <label><input type="radio" name="loanAfter2024" value="yes"> Yes</label><label><input type="radio" name="loanAfter2024" value="no"> No</label></fieldset>
+      <fieldset><legend>Is it a <strong>purchase loan</strong>, not a lease?</legend>
+        <label><input type="radio" name="notLease" value="yes"> Yes</label><label><input type="radio" name="notLease" value="no"> No</label></fieldset>
+      <fieldset><legend>Is the lender <strong>not a relative</strong> or a business related to you?</legend>
+        <label><input type="radio" name="notRelative" value="yes"> Yes</label><label><input type="radio" name="notRelative" value="no"> No</label></fieldset>
+    </form>
+
+    <div id="verdict" class="card verdict" role="status" aria-live="polite" hidden></div>
+
+    <form id="calc" class="card" hidden novalidate>
+      <h3>Estimate your deduction</h3>
+      <div class="grid">
+        <label>Tax year <select id="year"><option>2025</option><option selected>2026</option><option>2027</option><option>2028</option></select></label>
+        <label>Interest paid that year ($) <input id="interest" type="number" inputmode="decimal" min="0" step="0.01" aria-describedby="interest-hint"></label>
+      </div>
+      <p id="interest-hint" class="hint">Use box 1 of your Form 1098-VLI. No form yet? Estimate it here:</p>
+      <details id="estimator">
+        <summary class="plain">Estimate the interest from my loan terms</summary>
+        <div class="grid">
+          <label>Amount financed ($) <input id="est-amount" type="number" inputmode="decimal" min="0" step="0.01"></label>
+          <label>APR (%) <input id="est-apr" type="number" inputmode="decimal" min="0" max="40" step="0.01"></label>
+          <label>Term (months) <input id="est-term" type="number" inputmode="numeric" min="1" max="120" step="1"></label>
+          <label>First payment (month) <input id="est-first" type="month"></label>
+        </div>
+        <button type="button" id="est-go" class="secondary">Use this estimate</button>
+        <p id="est-out" class="hint" aria-live="polite"></p>
+      </details>
+      <div class="grid">
+        <label>Total amount financed ($) <input id="financed" type="number" inputmode="decimal" min="0" step="0.01"></label>
+        <label>Down payment ($) <input id="down" type="number" inputmode="decimal" min="0" step="0.01" value="0"></label>
+        <label>Negative equity and other non-car items rolled in ($) <input id="nonq" type="number" inputmode="decimal" min="0" step="0.01" value="0" aria-describedby="nonq-hint"></label>
+      </div>
+      <p id="nonq-hint" class="hint">Negative equity from a trade-in, a trailer, non-credit insurance, cash back. Warranties, service plans, GAP, sales tax and title fees <em>do</em> count as part of the car.</p>
+      <label class="check"><input id="refi" type="checkbox"> This loan refinanced an earlier car loan</label>
+      <div id="refi-row" class="grid" hidden>
+        <label>Old loan balance when refinanced ($) <input id="refi-old" type="number" inputmode="decimal" min="0" step="0.01"></label>
+        <label>New loan amount ($) <input id="refi-new" type="number" inputmode="decimal" min="0" step="0.01"></label>
+      </div>
+      <div class="grid">
+        <label>Business use of the car (%) <input id="business" type="number" inputmode="numeric" min="0" max="49" step="1" value="0"></label>
+        <label>Modified AGI ($) <input id="magi" type="number" inputmode="decimal" step="1" aria-describedby="magi-hint"></label>
+        <label class="check"><input id="joint" type="checkbox"> Married filing jointly</label>
+      </div>
+      <p id="magi-hint" class="hint">Your adjusted gross income, plus any foreign earned income or US-territory income you excluded.</p>
+      <div id="calc-out" class="result" role="status" aria-live="polite"></div>
+    </form>
+
+    <p id="print-row" hidden><button type="button" id="print">Print a summary for your tax preparer</button></p>
+  </section>
+
+  <div class="ad-slot ad-slot-top" aria-hidden="true"></div>
+
+  <article id="guide">
+    <h2>How the car loan interest deduction works</h2>
+    <p>From 2025 through 2028 you can deduct up to $10,000 a year of interest on a loan for a new car, SUV, pickup, van, minivan or motorcycle. The vehicle must have had its final assembly in the United States. You don't need to itemize. Most of the rules are about the loan and how you use the car. Three of them are about the vehicle, and your VIN can answer those three.</p>
+
+    <section id="how-it-works">
+      <h3>What this checker does</h3>
+      <p>When you press <em>Check my car</em>, your browser sends the VIN to the free VIN decoder run by the National Highway Traffic Safety Administration (NHTSA), the lookup the Treasury and the IRS name in the final regulations. It reads back three fields and applies the rules:</p>
+      <ol>
+        <li><strong>Plant of manufacture.</strong> The rule lets you rely on "the vehicle's plant of manufacture as reported in the VIN." A plant in the United States passes. Anywhere else fails.</li>
+        <li><strong>Gross vehicle weight rating (GVWR).</strong> It must be <em>less than</em> 14,000 lb. The lookup gives a weight class, not an exact number, so a Class 3 truck (10,001–14,000 lb) needs one more look at the door-jamb label.</li>
+        <li><strong>Vehicle type.</strong> Car, minivan, van, SUV, pickup or motorcycle. We map NHTSA's body type to these six. Anything unclear is marked for review, never passed.</li>
+      </ol>
+      <p>Then you answer the questions a VIN can't settle. The calculator applies the $10,000 cap, the income phase-out and the refinancing and negative-equity rules. Your answers and numbers stay in your browser.</p>
+    </section>
+
+    <section id="rules">
+      <h3>The rules, with their source</h3>
+      <p>Everything here comes from the final regulations, T.D. 10054, published in the Federal Register on 8 September 2026 (26 CFR §1.163-16), checked 29 September 2026.</p>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">Test</th><th scope="col">Rule</th><th scope="col">Section</th></tr></thead>
+        <tbody>
+          <tr><td>Built in the US</td><td>Final assembly in the United States; you may rely on the plant in the VIN or the window-sticker final assembly point</td><td>§1.163-16(e)(3)</td></tr>
+          <tr><td>Weight</td><td>GVWR less than 14,000 lb</td><td>§1.163-16(e)(1)(vi)</td></tr>
+          <tr><td>New</td><td>Original use starts with you; the loan papers treat it as new</td><td>§1.163-16(e)(2)</td></tr>
+          <tr><td>Personal use</td><td>You expected more than 50% personal use when you took the loan</td><td>§1.163-16(f)</td></tr>
+          <tr><td>Loan</td><td>Taken after 31 Dec 2024, secured by a first lien on the car, not a lease, not from a related party</td><td>§1.163-16(c), (d)</td></tr>
+          <tr><td>Cap</td><td>$10,000 per return, whatever your filing status</td><td>§1.163-16(h)(1)</td></tr>
+          <tr><td>Phase-out</td><td>Minus $200 for each $1,000 (or part of $1,000) of modified AGI over $100,000 ($200,000 joint)</td><td>§1.163-16(h)(2)</td></tr>
+          <tr><td>VIN on return</td><td>You must report the VIN on your tax return</td><td>§1.163-16(c)(5)</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p><strong>What counts as part of the loan.</strong> The price, sales tax, title and registration fees, warranties, service plans, GAP and credit insurance all count. Negative equity from a trade-in, a trailer, ordinary car insurance and cash back do not. Your down payment is applied to those non-qualifying amounts first, and interest is split pro rata.</p>
+    </section>
+
+    <section id="limits">
+      <h3>What this checker can't tell you</h3>
+      <ul>
+        <li>The VIN can't prove the car was new to you, how you use it, or how the loan is secured. Those answers are yours.</li>
+        <li>NHTSA's data comes from the manufacturers. If the lookup has no plant, the regulations let you use the final assembly point on the window sticker instead.</li>
+        <li>The interest estimate uses a standard monthly schedule. Your lender accrues interest daily, so use the Form 1098-VLI figure when you have it.</li>
+        <li>This is an estimate, not tax advice. The IRS, or your tax preparer applying the rules to your full return, gives the binding answer.</li>
+      </ul>
+      <p><strong>The first-character trap.</strong> Some sites say a VIN starting with 1, 4 or 5 means "made in the USA". That character only shows the region the maker's code belongs to. The rule uses the plant. We found the same model built in two countries (Tucson, Civic, Silverado, RAV4), so we always read the plant.</p>
+      <p><strong>Heavy-duty pickups.</strong> Many heavy-duty pickups, including every 2026 Ford F-450 pickup according to Ford's own spec sheet, are rated at exactly 14,000 lb. That is not <em>less than</em> 14,000, so they don't qualify. The VIN lookup only says "Class 3: 10,001–14,000 lb", so we ask for the label figure.</p>
+    </section>
+
+    <section id="example">
+      <h3>Worked example</h3>
+      <p>A single filer with a modified AGI of $112,400 buys a new Chevrolet Tahoe built in Arlington, Texas (Class 2F, 7,001–8,000 lb). The price with tax and fees is $68,000. The trade-in carries $3,000 of negative equity, and the buyer puts $2,000 down, so the loan is $69,000.</p>
+      <ul>
+        <li>The $2,000 down payment is applied to the $3,000 negative equity first. That leaves $1,000 of the loan that doesn't qualify, so $68,000 of $69,000 does.</li>
+        <li>The Form 1098-VLI shows $4,140 of interest for the year. $4,140 × 68,000 ÷ 69,000 = <strong>$4,080</strong> of qualifying interest, under the $10,000 cap.</li>
+        <li>Income is $12,400 over $100,000. That's 13 started blocks of $1,000, and 13 × $200 = <strong>$2,600</strong> of phase-out.</li>
+        <li>Deduction: $4,080 − $2,600 = <strong>$1,480</strong>.</li>
+      </ul>
+    </section>
+
+    <section id="section-179">
+      <h3>Section 179 and the "over 6,000 lb" rule</h3>
+      <p>Business buyers ask a different question about the same number. A vehicle rated at 6,000 lb or less is a "passenger automobile" under 26 U.S.C. §280F(d)(5), with yearly depreciation caps. Heavier SUVs, pickups and vans escape those caps. Section 179 still limits heavy SUVs to $31,300 (2025) or $32,000 (2026) under §179(b)(5). Pickups with a bed of at least 6 feet inside, and some cargo vans, are outside that cap. The weight classes in the VIN lookup line up with 6,000 lb exactly, so the checker answers this too. Section 179 needs more than 50% business use, the opposite of the car loan deduction.</p>
+    </section>
+
+    <section id="faq">
+      <h3>Frequently asked questions</h3>
+      <details><summary>Does the first character of the VIN tell me if my car was built in the USA?</summary><p>No. The first character shows the region of the maker's code. The deduction uses the plant of manufacture reported in the VIN, which the NHTSA lookup returns separately.</p></details>
+      <details><summary>My truck's weight rating is exactly 14,000 lb. Does it qualify?</summary><p>No. The vehicle must have a gross vehicle weight rating of less than 14,000 pounds. A 14,000 lb truck, such as many heavy-duty pickups, does not qualify.</p></details>
+      <details><summary>Do used cars qualify for the car loan interest deduction?</summary><p>No. The original use of the vehicle has to start with you, and your loan papers have to treat it as a new vehicle.</p></details>
+      <details><summary>Can I take the deduction if I don't itemize?</summary><p>Yes. The deduction is allowed whether you itemize or take the standard deduction.</p></details>
+      <details><summary>Where do I find how much interest I paid?</summary><p>On Form 1098-VLI. Lenders that receive $600 or more of interest must send it by January 31 of the following year. Otherwise use your loan statements.</p></details>
+      <details><summary>What happens if I refinance my car loan?</summary><p>The new loan still qualifies if it is secured by the same car, but only up to the balance of the old loan on the day you refinanced. Interest on any cash-out part does not count.</p></details>
+      <details><summary>Which tax years does the deduction cover?</summary><p>Tax years 2025 through 2028, for loans taken out after December 31, 2024.</p></details>
+      <details><summary>Can I use Section 179 and the car loan interest deduction on the same vehicle?</summary><p>Not in the same way at the same time. The car loan deduction needs more than 50% personal use; Section 179 on a vehicle needs more than 50% business use.</p></details>
+    </section>
+
+    <section id="sources">
+      <h3>Sources</h3>
+      <ul class="sources">
+        <li><a href="https://www.federalregister.gov/documents/2026/09/08/2026-18219/car-loan-interest-deduction" rel="noopener">Car Loan Interest Deduction, final regulations, T.D. 10054, 91 FR 57214 (8 Sep 2026)</a>, checked 29 September 2026</li>
+        <li><a href="https://vpic.nhtsa.dot.gov/api/" rel="noopener">NHTSA vPIC VIN decoder API</a>, checked 29 September 2026</li>
+        <li><a href="https://www.law.cornell.edu/uscode/text/26/280F" rel="noopener">26 U.S.C. §280F</a> and <a href="https://www.law.cornell.edu/uscode/text/26/179" rel="noopener">§179</a>, checked 29 September 2026</li>
+        <li><a href="https://www.irs.gov/pub/irs-drop/rp-24-40.pdf" rel="noopener">Rev. Proc. 2024-40</a> and <a href="https://www.irs.gov/pub/irs-drop/rp-25-32.pdf" rel="noopener">Rev. Proc. 2025-32</a> (SUV cap amounts), checked 29 September 2026</li>
+      </ul>
+    </section>
+  </article>
+
+  <div class="ad-slot ad-slot-bottom" aria-hidden="true"></div>
+
+  <section id="summary" class="print-only" aria-hidden="true"></section>
+</main>
+
+<footer class="site">
+  <p>Not affiliated with the IRS, the Treasury or NHTSA. Results are estimates, not tax advice. Rules checked 29 September 2026.</p>
+  <p><a href="about.html">About</a> · <a href="privacy.html">Privacy</a> · <a href="contact.html">Contact</a></p>
+</footer>
+</body>
+</html>
