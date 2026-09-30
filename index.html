@@ -27,8 +27,8 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="preload" href="fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=9ccd97e60f">
-<script type="module" src="app.js?v=a8286df60e"></script>
+<link rel="stylesheet" href="styles.css?v=4672167ae0">
+<script type="module" src="app.js?v=d18e3df177"></script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebApplication","name":"Does My Car Qualify? Car loan interest deduction VIN lookup","url":"https://car.loopnode.live/","applicationCategory":"FinanceApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Checks a VIN against the plant, weight and vehicle-type tests of the qualified passenger vehicle loan interest deduction (26 CFR 1.163-16) and estimates the deduction."}
 </script>
@@ -112,7 +112,7 @@
         </div>
         <div id="manual" class="manual" hidden>
           <h4>Enter vehicle details manually</h4>
-          <p class="hint">For when the VIN lookup is down or doesn't know your car. Next you'll read the final assembly point on the window sticker and the GVWR on the door-jamb label.</p>
+          <p class="hint">For when the VIN lookup is down or doesn't know your car. Next you'll read the final assembly point on the window sticker and the GVWR on the door-jamb label. Motorcycles, and pickups or vans rated over 8,500 lb GVWR, may have no window-sticker label (49 CFR 583.3–583.4): for them the plant in the VIN is the route, so try the lookup again later.</p>
           <label for="manual-type">Vehicle type</label>
           <select id="manual-type" aria-describedby="manual-type-error">
             <option value="">Choose a type…</option>
@@ -249,7 +249,7 @@
       <div id="verdict" class="verdict reveal" role="status" aria-live="polite" tabindex="-1" hidden></div>
       <div id="vehicle-ask" class="vehicle-ask reveal" hidden>
         <div id="trap" class="alert alert-info" hidden></div>
-        <div id="used-warning" class="alert alert-warn" hidden></div>
+        <div id="model-year-note" class="alert alert-info" hidden></div>
         <div id="label-gvwr-row" class="ask" hidden>
           <label for="label-gvwr">GVWR on your door-jamb label (lb)</label>
           <div class="input-wrap"><input id="label-gvwr" type="number" inputmode="numeric" min="0" max="100000" step="1" aria-describedby="label-gvwr-hint"><span class="affix affix-end" aria-hidden="true">lb</span></div>
@@ -259,6 +259,7 @@
         <fieldset id="sticker-row" class="ask" hidden>
           <legend>Does the window sticker give a final assembly point in the US?</legend>
           <div class="seg" role="presentation"><label><input type="radio" name="sticker" value="yes"><span>Yes</span></label><label><input type="radio" name="sticker" value="no"><span>No</span></label></div>
+          <p class="hint">Motorcycles, and pickups or vans rated over 8,500 lb GVWR, may have no such label (49 CFR 583.3–583.4): for them the plant in the VIN is the route. If yours has no label, leave this unanswered and ask your tax preparer.</p>
         </fieldset>
       </div>
       <div id="calc-out" class="deduction reveal" hidden></div>
@@ -330,7 +331,7 @@
       <h3>The rules, with their source</h3>
       <p>Everything here comes from the final regulations, T.D. 10054, published in the Federal Register on Sep 8, 2026 (26 CFR §1.163-16), checked Sep 29, 2026.</p>
       <dl class="rule-cards">
-        <div class="rule-card"><dt><svg class="icon" aria-hidden="true"><use href="#i-factory"/></svg>Built in the US</dt><dd>Final assembly in the United States; you may rely on the plant in the VIN or the window-sticker final assembly point</dd><dd class="rule-cite">§1.163-16(e)(3)</dd></div>
+        <div class="rule-card"><dt><svg class="icon" aria-hidden="true"><use href="#i-factory"/></svg>Built in the US</dt><dd>Final assembly in the United States; you may rely on the plant in the VIN or the window-sticker final assembly point</dd><dd class="rule-note">Motorcycles, and pickups or vans rated over 8,500 lb GVWR, may have no such label (49 CFR 583.3–583.4): for them the plant in the VIN is the route.</dd><dd class="rule-cite">§1.163-16(e)(3)</dd></div>
         <div class="rule-card"><dt><svg class="icon" aria-hidden="true"><use href="#i-scale"/></svg>Weight</dt><dd>GVWR less than 14,000 lb</dd><dd class="rule-cite">§1.163-16(e)(1)(vi)</dd></div>
         <div class="rule-card"><dt><svg class="icon" aria-hidden="true"><use href="#i-sparkle"/></svg>New</dt><dd>Original use starts with you; the loan papers treat it as new</dd><dd class="rule-cite">§1.163-16(e)(2)</dd></div>
         <div class="rule-card"><dt><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg>Personal use</dt><dd>You expected more than 50% personal use when you took the loan</dd><dd class="rule-cite">§1.163-16(f)</dd></div>
@@ -350,7 +351,7 @@
       <h3>What this checker can't tell you</h3>
       <ul class="limit-cards">
         <li><svg class="icon" aria-hidden="true"><use href="#i-help"/></svg>The VIN can't prove the car was new to you, how you use it, or how the loan is secured. Those answers are yours.</li>
-        <li><svg class="icon" aria-hidden="true"><use href="#i-factory"/></svg>NHTSA's data comes from the manufacturers. If the lookup has no plant, the regulations let you use the final assembly point on the window sticker instead.</li>
+        <li><svg class="icon" aria-hidden="true"><use href="#i-factory"/></svg>NHTSA's data comes from the manufacturers. If the lookup has no plant, the regulations let you use the final assembly point on the window sticker instead. Motorcycles, and pickups or vans rated over 8,500 lb GVWR, may have no such label (49 CFR 583.3–583.4): for them the plant in the VIN is the route.</li>
         <li><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>The interest estimate uses a standard monthly schedule. Your lender accrues interest daily, so use the Form 1098-VLI figure when you have it.</li>
         <li><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>This is an estimate, not tax advice. The IRS, or your tax preparer applying the rules to your full return, gives the binding answer.</li>
       </ul>
