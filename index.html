@@ -13,6 +13,7 @@
 <meta property="og:url" content="https://car.loopnode.live/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="LoopNode">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://car.loopnode.live/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -26,8 +27,8 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="preload" href="fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css">
-<script type="module" src="app.js"></script>
+<link rel="stylesheet" href="styles.css?v=1dbf30a413">
+<script type="module" src="app.js?v=a8286df60e"></script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebApplication","name":"Does My Car Qualify? Car loan interest deduction VIN lookup","url":"https://car.loopnode.live/","applicationCategory":"FinanceApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Checks a VIN against the plant, weight and vehicle-type tests of the qualified passenger vehicle loan interest deduction (26 CFR 1.163-16) and estimates the deduction."}
 </script>
@@ -37,8 +38,8 @@
 {"@type":"Question","name":"My truck's weight rating is exactly 14,000 lb. Does it qualify?","acceptedAnswer":{"@type":"Answer","text":"No. The vehicle must have a gross vehicle weight rating of less than 14,000 pounds. A 14,000 lb truck, such as many heavy-duty pickups, does not qualify."}},
 {"@type":"Question","name":"Do used cars qualify for the car loan interest deduction?","acceptedAnswer":{"@type":"Answer","text":"No. The original use of the vehicle has to start with you, and your loan papers have to treat it as a new vehicle."}},
 {"@type":"Question","name":"Can I take the deduction if I don't itemize?","acceptedAnswer":{"@type":"Answer","text":"Yes. The deduction is allowed whether you itemize or take the standard deduction."}},
-{"@type":"Question","name":"Where do I find how much interest I paid?","acceptedAnswer":{"@type":"Answer","text":"On Form 1098-VLI. Lenders that receive $600 or more of interest must send it by January 31 of the following year. Otherwise use your loan statements."}},
-{"@type":"Question","name":"What happens if I refinance my car loan?","acceptedAnswer":{"@type":"Answer","text":"The new loan still qualifies if it is secured by the same car, but only up to the balance of the old loan on the day you refinanced. Interest on any cash-out part does not count."}},
+{"@type":"Question","name":"Where do I find how much interest I paid?","acceptedAnswer":{"@type":"Answer","text":"On Form 1098-VLI. Lenders that receive $600 or more of interest must send it by January 31 of the following year. Otherwise use your loan statements. For 2025, Notice 2025-57 lets lenders give you the interest total in a statement (online, monthly or annual) instead of the form."}},
+{"@type":"Question","name":"What happens if I refinance my car loan?","acceptedAnswer":{"@type":"Answer","text":"The new loan still qualifies if it is secured by the same car, but only up to the balance of the old loan on the day you refinanced. Interest on any cash-out part does not count. It also only counts if the loan you refinanced qualified itself: taken after December 31, 2024, to buy the car new."}},
 {"@type":"Question","name":"Which tax years does the deduction cover?","acceptedAnswer":{"@type":"Answer","text":"Tax years 2025 through 2028, for loans taken out after December 31, 2024."}},
 {"@type":"Question","name":"Can I use Section 179 and the car loan interest deduction on the same vehicle?","acceptedAnswer":{"@type":"Answer","text":"Not in the same way at the same time. The car loan deduction needs more than 50% personal use; Section 179 on a vehicle needs more than 50% business use."}}
 ]}
@@ -99,9 +100,10 @@
         <div class="widget-head"><h2 class="widget-title">Does my car qualify?</h2><span class="widget-tag">Free · no sign-up</span></div>
         <label for="vin">Your 17-character VIN</label>
         <div class="vin-row">
-          <div class="input-wrap input-vin"><svg class="icon affix-icon" aria-hidden="true"><use href="#i-search"/></svg><input id="vin" name="vin" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="24" placeholder="e.g. 1GNS6NKD3TR388255" aria-describedby="vin-hint vin-status" required></div>
+          <div class="input-wrap input-vin"><svg class="icon affix-icon" aria-hidden="true"><use href="#i-search"/></svg><input id="vin" name="vin" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="64" placeholder="e.g. 1GNS6NKD3TR388255" aria-describedby="vin-hint vin-status" required></div>
           <button type="submit" id="vin-go" class="btn btn-primary"><span class="spinner" aria-hidden="true" hidden></span>Check my car</button>
         </div>
+        <noscript><p class="noscript-note">This checker needs JavaScript. The guide below explains every rule if you'd rather check by hand.</p></noscript>
         <p id="vin-hint" class="hint">It's on your loan contract, registration, insurance card, or at the base of the windshield. Only the VIN is sent, to NHTSA's free VIN lookup.</p>
         <p id="vin-status" class="status" role="status" aria-live="polite"></p>
         <div id="vin-actions" class="vin-actions" hidden>
@@ -120,6 +122,7 @@
             <option value="minivan">Minivan</option>
             <option value="van">Van</option>
             <option value="motorcycle">Motorcycle</option>
+            <option value="other">RV, motorhome, bus or other</option>
           </select>
           <p id="manual-type-error" class="field-error" hidden></p>
           <button type="button" id="manual-go" class="btn btn-primary">Use these details</button>
@@ -134,7 +137,7 @@
           </ul>
           <div class="preview-amount-row">
             <div><p class="preview-label">Estimated deduction</p><p id="preview-amount" class="preview-amount">$—</p></div>
-            <a id="preview-next" class="preview-next" href="#questions" hidden>Next: answer 6 questions</a>
+            <a id="preview-next" class="preview-next" href="#questions" hidden>Next: answer 8 questions</a>
           </div>
         </div>
       </form>
@@ -168,8 +171,6 @@
     </div>
   </section>
 
-  <noscript><div class="container"><p class="alert alert-warn noscript">This checker needs JavaScript. The guide below explains every rule if you'd rather check by hand.</p></div></noscript>
-
   <section id="tool" class="container tool band band-mint" aria-labelledby="tool-h" hidden>
     <div class="tool-head">
       <p class="eyebrow">Steps 2 and 3</p>
@@ -189,8 +190,12 @@
         <div class="seg" role="presentation"><label><input type="radio" name="loanAfter2024" value="yes"><span>Yes</span></label><label><input type="radio" name="loanAfter2024" value="no"><span>No</span></label></div></fieldset>
       <fieldset class="q"><legend>Is it a <strong>purchase loan</strong>, not a lease?</legend>
         <div class="seg" role="presentation"><label><input type="radio" name="notLease" value="yes"><span>Yes</span></label><label><input type="radio" name="notLease" value="no"><span>No</span></label></div></fieldset>
-      <fieldset class="q"><legend>Is the lender <strong>not a relative</strong> or a business related to you?</legend>
+      <fieldset class="q"><legend>Is the lender <strong>unrelated to you</strong>, such as a bank, credit union or the dealer's finance company?</legend>
         <div class="seg" role="presentation"><label><input type="radio" name="notRelative" value="yes"><span>Yes</span></label><label><input type="radio" name="notRelative" value="no"><span>No</span></label></div></fieldset>
+      <fieldset class="q"><legend>Did you take out this loan <strong>yourself</strong>, rather than take it over from someone else?</legend>
+        <div class="seg" role="presentation"><label><input type="radio" name="originalBorrower" value="yes"><span>Yes</span></label><label><input type="radio" name="originalBorrower" value="no"><span>No</span></label></div></fieldset>
+      <fieldset class="q"><legend>Are you claiming as an <strong>individual</strong>, not as a company or business partnership?</legend>
+        <div class="seg" role="presentation"><label><input type="radio" name="individual" value="yes"><span>Yes</span></label><label><input type="radio" name="individual" value="no"><span>No</span></label></div></fieldset>
     </form>
 
     <form id="calc" class="card" hidden novalidate>
@@ -199,14 +204,14 @@
         <div class="field"><label for="year">Tax year</label><select id="year"><option>2025</option><option selected>2026</option><option>2027</option><option>2028</option></select></div>
         <div class="field"><label for="interest">Interest paid that year</label><div class="input-wrap"><span class="affix" aria-hidden="true">$</span><input id="interest" type="text" inputmode="decimal" autocomplete="off" aria-describedby="interest-hint"></div><p id="interest-error" class="field-error" hidden></p></div>
       </div>
-      <p id="interest-hint" class="hint">Use box 1 of your Form 1098-VLI. No form yet? Estimate it here:</p>
+      <p id="interest-hint" class="hint">Use box 1 of your Form 1098-VLI (for 2025, your lender may give you a statement of the interest instead). No form yet? Estimate it here:</p>
       <details id="estimator" class="estimator">
         <summary class="plain">Estimate the interest from my loan terms</summary>
         <div class="grid">
           <div class="field"><label for="est-amount">Amount financed</label><div class="input-wrap"><span class="affix" aria-hidden="true">$</span><input id="est-amount" type="text" inputmode="decimal" autocomplete="off"></div><p id="est-amount-error" class="field-error" hidden></p></div>
           <div class="field"><label for="est-apr">APR</label><div class="input-wrap"><input id="est-apr" type="number" inputmode="decimal" min="0" max="40" step="0.01"><span class="affix affix-end" aria-hidden="true">%</span></div></div>
           <div class="field"><label for="est-term">Term</label><div class="input-wrap"><input id="est-term" type="number" inputmode="numeric" min="1" max="120" step="1"><span class="affix affix-end" aria-hidden="true">months</span></div></div>
-          <div class="field"><label for="est-first">First payment (month)</label><input id="est-first" type="month" aria-describedby="est-first-hint"><p id="est-first-hint" class="hint">Format YYYY-MM, e.g. 2026-02.</p></div>
+          <div class="field"><label for="est-first">First payment (month)</label><input id="est-first" type="month" aria-describedby="est-first-hint"><p id="est-first-hint" class="hint">The month of your first payment, e.g. February 2026.</p></div>
         </div>
         <button type="button" id="est-go" class="btn btn-secondary">Use this estimate</button>
         <p id="est-out" class="hint" aria-live="polite"></p>
@@ -218,12 +223,17 @@
       </div>
       <p id="nonq-hint" class="hint">Negative equity from a trade-in, a trailer, non-credit insurance, cash back. Warranties, service plans, GAP, sales tax and title fees <em>do</em> count as part of the car.</p>
       <label class="check"><input id="refi" type="checkbox"> This loan refinanced an earlier car loan</label>
-      <div id="refi-row" class="grid" hidden>
+      <div id="refi-row" class="refi-row" hidden>
+        <fieldset class="q refi-original"><legend>Was the loan you refinanced (the original loan) also taken <strong>after Dec 31, 2024</strong>?</legend>
+          <div class="seg" role="presentation"><label><input type="radio" name="refiOriginal" value="yes"><span>Yes</span></label><label><input type="radio" name="refiOriginal" value="no"><span>No</span></label></div>
+          <p class="hint">A refinance only counts if the loan it replaced qualified too (§1.163-16(d)(4)).</p></fieldset>
+        <div class="grid">
         <div class="field"><label for="refi-old">Old loan balance when refinanced</label><div class="input-wrap"><span class="affix" aria-hidden="true">$</span><input id="refi-old" type="text" inputmode="decimal" autocomplete="off"></div><p id="refi-old-error" class="field-error" hidden></p></div>
         <div class="field"><label for="refi-new">New loan amount</label><div class="input-wrap"><span class="affix" aria-hidden="true">$</span><input id="refi-new" type="text" inputmode="decimal" autocomplete="off"></div><p id="refi-new-error" class="field-error" hidden></p></div>
+        </div>
       </div>
       <div class="grid">
-        <div class="field"><label for="business">Business use of the car</label><div class="input-wrap"><input id="business" type="number" inputmode="numeric" min="0" max="49" step="1" value="0"><span class="affix affix-end" aria-hidden="true">%</span></div><p id="business-error" class="field-error" hidden></p></div>
+        <div class="field"><label for="business">Business use of the car</label><div class="input-wrap"><input id="business" type="text" inputmode="numeric" autocomplete="off" value="0"><span class="affix affix-end" aria-hidden="true">%</span></div><p id="business-error" class="field-error" hidden></p></div>
         <div class="field"><label for="magi">Modified AGI</label><div class="input-wrap"><span class="affix" aria-hidden="true">$</span><input id="magi" type="text" inputmode="decimal" autocomplete="off" aria-describedby="magi-hint"></div><p id="magi-error" class="field-error" hidden></p><p id="magi-hint" class="hint">Your adjusted gross income, plus any foreign earned income or US-territory income you excluded.</p><label class="check"><input id="joint" type="checkbox"> Married filing jointly</label></div>
       </div>
     </form>
@@ -239,9 +249,11 @@
       <div id="verdict" class="verdict reveal" role="status" aria-live="polite" tabindex="-1" hidden></div>
       <div id="vehicle-ask" class="vehicle-ask reveal" hidden>
         <div id="trap" class="alert alert-info" hidden></div>
+        <div id="used-warning" class="alert alert-warn" hidden></div>
         <div id="label-gvwr-row" class="ask" hidden>
           <label for="label-gvwr">GVWR on your door-jamb label (lb)</label>
           <div class="input-wrap"><input id="label-gvwr" type="number" inputmode="numeric" min="0" max="100000" step="1" aria-describedby="label-gvwr-hint"><span class="affix affix-end" aria-hidden="true">lb</span></div>
+          <p id="label-gvwr-error" class="field-error" hidden></p>
           <p id="label-gvwr-hint" class="hint">It's on the sticker in the driver-side door frame, marked "GVWR". Exactly 14,000 lb does not qualify.</p>
         </div>
         <fieldset id="sticker-row" class="ask" hidden>
@@ -249,7 +261,8 @@
           <div class="seg" role="presentation"><label><input type="radio" name="sticker" value="yes"><span>Yes</span></label><label><input type="radio" name="sticker" value="no"><span>No</span></label></div>
         </fieldset>
       </div>
-      <div id="calc-out" class="deduction reveal" role="status" aria-live="polite" hidden></div>
+      <div id="calc-out" class="deduction reveal" hidden></div>
+      <p id="calc-live" class="visually-hidden" role="status" aria-live="polite"></p>
       <details id="vehicle" class="fold vehicle-fold reveal" hidden>
         <summary class="plain"><span class="fold-head"><span id="vehicle-kicker" class="panel-kicker">Vehicle from NHTSA's VIN lookup</span><span id="vehicle-name" class="vehicle-name">Your vehicle</span></span></summary>
         <ul id="checks" class="checks"></ul>
@@ -374,8 +387,8 @@
       <details><summary>My truck's weight rating is exactly 14,000 lb. Does it qualify?</summary><p>No. The vehicle must have a gross vehicle weight rating of less than 14,000 pounds. A 14,000 lb truck, such as many heavy-duty pickups, does not qualify.</p></details>
       <details><summary>Do used cars qualify for the car loan interest deduction?</summary><p>No. The original use of the vehicle has to start with you, and your loan papers have to treat it as a new vehicle.</p></details>
       <details><summary>Can I take the deduction if I don't itemize?</summary><p>Yes. The deduction is allowed whether you itemize or take the standard deduction.</p></details>
-      <details><summary>Where do I find how much interest I paid?</summary><p>On Form 1098-VLI. Lenders that receive $600 or more of interest must send it by January 31 of the following year. Otherwise use your loan statements.</p></details>
-      <details><summary>What happens if I refinance my car loan?</summary><p>The new loan still qualifies if it is secured by the same car, but only up to the balance of the old loan on the day you refinanced. Interest on any cash-out part does not count.</p></details>
+      <details><summary>Where do I find how much interest I paid?</summary><p>On Form 1098-VLI. Lenders that receive $600 or more of interest must send it by January 31 of the following year. Otherwise use your loan statements. For 2025, Notice 2025-57 lets lenders give you the interest total in a statement (online, monthly or annual) instead of the form.</p></details>
+      <details><summary>What happens if I refinance my car loan?</summary><p>The new loan still qualifies if it is secured by the same car, but only up to the balance of the old loan on the day you refinanced. Interest on any cash-out part does not count. It also only counts if the loan you refinanced qualified itself: taken after December 31, 2024, to buy the car new.</p></details>
       <details><summary>Which tax years does the deduction cover?</summary><p>Tax years 2025 through 2028, for loans taken out after December 31, 2024.</p></details>
       <details><summary>Can I use Section 179 and the car loan interest deduction on the same vehicle?</summary><p>Not in the same way at the same time. The car loan deduction needs more than 50% personal use; Section 179 on a vehicle needs more than 50% business use.</p></details>
     </section>
