@@ -2934,6 +2934,9 @@ body.has-bar .site-footer {
 .info-card .info-icon + p {
   margin-top: 18px;
 }
+.info-card p + p {
+  margin-top: 10px;
+}
 .info-icon {
   display: inline-grid;
   place-items: center;
