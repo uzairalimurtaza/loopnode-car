@@ -16,12 +16,15 @@
 <meta property="og:image" content="https://car.loopnode.live/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="LoopNode car loan check: a VIN result with three passing checks and an estimated deduction.">
+<meta property="og:image:alt" content="Does My Car Qualify? icon (a car key with a check, on lime) beside a VIN result: three passing checks and an estimated deduction of $1,480.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0e2a24">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-16.png" sizes="16x16" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="preload" href="fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
 <script type="module" src="app.js"></script>
@@ -73,7 +76,7 @@
 <a class="skip" href="#vin-form">Skip to the VIN check</a>
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="./"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" class="logo-bg"/><circle cx="14" cy="17" r="7" class="logo-loop"/><circle cx="21" cy="10" r="3.6" class="logo-node"/></svg><span class="wordmark">LoopNode</span><span class="product">Car loan check</span></a>
+    <a class="brand" href="./"><svg class="brand-icon" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" rx="230" fill="#B8F36B"/><g transform="rotate(-40 512 512) translate(8 0) scale(1.12) translate(-55 -55)"><g fill="#0E2A24"><path d="M268 382 H386 C462 382 500 424 500 512 C500 600 462 642 386 642 H268 C192 642 154 600 154 512 C154 424 192 382 268 382 Z"/><rect x="490" y="468" width="44" height="88" rx="14"/><path d="M526 478 H826 C846 478 862 488 876 502 L886 512 L876 522 C862 536 846 546 826 546 H770 L748 590 L712 590 L690 546 H650 L628 590 L592 590 L570 546 H526 Z"/></g><path d="M566 512 H828" stroke="#B8F36B" stroke-width="11" stroke-linecap="round"/></g><path d="M306 646 L346 686 L426 602" fill="none" stroke="#B8F36B" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="wordmark">Does My Car Qualify?</span></a>
     <nav class="site-nav" aria-label="Site"><a class="nav-optional" href="#how-it-works">How it works</a><a href="#faq">FAQ</a><a href="about.html">About</a></nav>
   </div>
 </header>
@@ -338,7 +341,7 @@
         <li><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>The interest estimate uses a standard monthly schedule. Your lender accrues interest daily, so use the Form 1098-VLI figure when you have it.</li>
         <li><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>This is an estimate, not tax advice. The IRS, or your tax preparer applying the rules to your full return, gives the binding answer.</li>
       </ul>
-      <div class="alert alert-info"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg><div><p><strong>The first-character trap.</strong> Some sites say a VIN starting with 1, 4 or 5 means "made in the USA". That character only shows the region the maker's code belongs to. The rule uses the plant. We found the same model built in two countries (Tucson, Civic, Silverado, RAV4), so we always read the plant.</p><p class="alert-visual" aria-hidden="true"><span class="vin-chip"><b>1</b>FTFW3L5…</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg><span>region code, not the plant</span></p></div></div>
+      <div class="alert alert-info"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg><div><p><strong>The first-character trap.</strong> Some sites say a VIN starting with 1, 4 or 5 means "made in the USA". That character only shows the region the maker's code belongs to. The rule uses the plant. We found the same model built in two countries (Tucson, Civic, Silverado, RAV4), so we always read the plant.</p><p class="alert-visual va-trap" aria-hidden="true"><span class="vin-chip"><b>1</b>FTFW3L5…</span><svg class="icon va-arrow" aria-hidden="true"><use href="#i-arrow"/></svg><span class="va-caption">region code, not the plant</span></p></div></div>
       <div class="alert alert-warn"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg><div><p><strong>Heavy-duty pickups.</strong> Many heavy-duty pickups, including every 2026 Ford F-450 pickup according to Ford's own spec sheet, are rated at exactly 14,000 lb. That is not <em>less than</em> 14,000, so they don't qualify. The VIN lookup only says "Class 3: 10,001–14,000 lb", so we ask for the label figure.</p><p class="alert-visual" aria-hidden="true"><span class="lb-chip lb-no"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg>14,000 lb</span><span class="lb-chip lb-yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>13,999 lb</span></p></div></div>
     </section>
 
@@ -412,7 +415,8 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <div class="footer-brand">
-      <a class="brand" href="./"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" class="logo-bg"/><circle cx="14" cy="17" r="7" class="logo-loop"/><circle cx="21" cy="10" r="3.6" class="logo-node"/></svg><span class="wordmark">LoopNode</span></a>
+      <a class="brand" href="./"><svg class="brand-icon" viewBox="0 0 1024 1024" aria-hidden="true"><rect width="1024" height="1024" rx="230" fill="#B8F36B"/><g transform="rotate(-40 512 512) translate(8 0) scale(1.12) translate(-55 -55)"><g fill="#0E2A24"><path d="M268 382 H386 C462 382 500 424 500 512 C500 600 462 642 386 642 H268 C192 642 154 600 154 512 C154 424 192 382 268 382 Z"/><rect x="490" y="468" width="44" height="88" rx="14"/><path d="M526 478 H826 C846 478 862 488 876 502 L886 512 L876 522 C862 536 846 546 826 546 H770 L748 590 L712 590 L690 546 H650 L628 590 L592 590 L570 546 H526 Z"/></g><path d="M566 512 H828" stroke="#B8F36B" stroke-width="11" stroke-linecap="round"/></g><path d="M306 646 L346 686 L426 602" fill="none" stroke="#B8F36B" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="wordmark">Does My Car Qualify?</span></a>
+      <p class="by"><a class="by-loopnode" href="https://loopnode.live/"><svg class="ln-mark" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="ln-tile" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E4E5EE"/></linearGradient></defs><rect width="64" height="64" rx="14.4" fill="url(#ln-tile)"/><path d="M43.2 38.6 A14 14 0 1 1 27.4 18.9" fill="none" stroke="#4A40E4" stroke-width="9" stroke-linecap="round"/><circle cx="42.6" cy="21.8" r="7" fill="#FF7A59"/></svg><span>a LoopNode tool</span></a></p>
       <p>Small tools that show their sources. One job per site.</p>
     </div>
     <nav class="footer-nav" aria-label="Footer"><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a><a href="https://loopnode.live/">loopnode.live</a></nav>

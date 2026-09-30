@@ -1,0 +1,12 @@
+{
+  "name": "Does My Car Qualify? Car loan interest deduction VIN lookup",
+  "short_name": "Car qualify?",
+  "start_url": "./",
+  "display": "browser",
+  "background_color": "#0e2a24",
+  "theme_color": "#0e2a24",
+  "icons": [
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

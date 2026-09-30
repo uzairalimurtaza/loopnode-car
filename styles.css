@@ -11,6 +11,16 @@
     U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F,
     U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+/* IBM Plex Sans Arabic 600 (OFL — fonts/OFL-IBM-Plex-Sans-Arabic.txt), the taqaud/hub subset: only for the Arabic tool name.
+   Loaded only when Arabic text renders (unicode-range), below the fold, so it can't shift the first screen. */
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/plex-arabic-600.woff2") format("woff2");
+  unicode-range: U+0600-06FF, U+200C-200F;
+}
 @font-face {
   font-family: "Inter Fallback";
   src: local("Arial"), local("Helvetica Neue"), local("Helvetica");
@@ -69,6 +79,9 @@
   --shadow: 0 1px 2px rgba(14, 42, 36, 0.05), 0 12px 28px -16px rgba(14, 42, 36, 0.24);
   --shadow-lg: 0 2px 4px rgba(14, 42, 36, 0.04), 0 32px 64px -32px rgba(14, 42, 36, 0.36);
 
+  /* page container (header, hero, every section, footer): 1280px like taqaud + the hub (orchestrator, 2026-09-30; was
+     1,120 px of content). Body text keeps its own 68ch limit. */
+  --container: 1280px;
   --r-input: 12px;
   --r-card: 20px;
   --r-widget: 28px;
@@ -243,7 +256,7 @@ strong {
 }
 .container {
   width: 100%;
-  max-width: calc(1120px + 2 * var(--gutter));
+  max-width: var(--container);
   margin: 0 auto;
   padding: 0 16px;
 }
@@ -277,34 +290,15 @@ strong {
 .brand:hover {
   color: var(--text);
 }
-.logo-mark {
-  width: 30px;
-  height: 30px;
+/* Icons v3 (owner, 2026-09-30): the car key with a check, on lime — car.svg inline, in its own colours (never recoloured) */
+.brand-icon {
+  width: 32px;
+  height: 32px;
   flex: none;
-}
-.logo-bg {
-  fill: var(--accent);
-}
-.logo-loop {
-  fill: none;
-  stroke: var(--on-accent);
-  stroke-width: 3;
-}
-.logo-node {
-  fill: var(--on-accent);
-  stroke: var(--accent);
-  stroke-width: 2;
 }
 .wordmark {
   font-size: 17px;
-}
-.product {
-  display: none;
-  font-weight: 500;
-  color: var(--muted);
-  font-size: 14px;
-  padding-left: 10px;
-  border-left: 1px solid var(--line-strong);
+  white-space: nowrap;
 }
 .site-nav {
   display: flex;
@@ -1012,9 +1006,6 @@ select[aria-invalid="true"] {
   .vin-row .btn {
     flex: 0 0 auto;
   }
-  .product {
-    display: inline;
-  }
   .nav-optional {
     display: inline;
   }
@@ -1031,7 +1022,7 @@ select[aria-invalid="true"] {
   --lime-ink: #0e2a24;
 }
 
-/* header sits on the brand colour; the canonical glyph turns lime through --accent only */
+/* header sits on the brand colour (the key icon keeps its own lime tile) */
 .site-header {
   --accent: var(--lime);
   --on-accent: var(--lime-ink);
@@ -1041,10 +1032,6 @@ select[aria-invalid="true"] {
 .site-header .brand,
 .site-header .brand:hover {
   color: #fff;
-}
-.site-header .product {
-  color: rgba(255, 255, 255, 0.72);
-  border-left-color: rgba(255, 255, 255, 0.22);
 }
 .site-header .site-nav a {
   color: rgba(255, 255, 255, 0.86);
@@ -2064,6 +2051,7 @@ select[aria-invalid="true"] {
   background: var(--surface-2);
 }
 .rail-tools a {
+  display: block;
   font-weight: 500;
   color: var(--text-2);
 }
@@ -2279,8 +2267,14 @@ select[aria-invalid="true"] {
   gap: 12px;
   margin: 20px 0 0;
 }
+/* the two columns share their rows (subgrid), so the lists start on the same line even when a heading wraps */
 .counts-col {
-  padding: 18px;
+  display: grid;
+  grid-row: span 2;
+  grid-template-rows: subgrid;
+  row-gap: 10px;
+  align-content: start;
+  padding: 14px;
   border-radius: var(--r-card);
 }
 .counts-yes {
@@ -2296,7 +2290,7 @@ select[aria-invalid="true"] {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 0 0 10px;
+  margin: 0;
   font-size: 16px;
   font-weight: 800;
 }
@@ -2305,6 +2299,7 @@ select[aria-invalid="true"] {
   padding: 0;
   margin: 0;
   display: grid;
+  align-content: start;
   gap: 6px;
 }
 .counts li {
@@ -2403,6 +2398,16 @@ select[aria-invalid="true"] {
   height: 16px;
   vertical-align: 0;
 }
+/* phones: chip, arrow pointing down, caption (a wrapped caption left the arrow pointing at nothing); a row from 640px */
+.alert .va-trap {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+.alert .va-trap .va-arrow {
+  margin-left: 9px;
+  transform: rotate(90deg);
+}
 
 /* ---- Worked example: dark band, the steps as a receipt card, the answer in lime */
 .example ul {
@@ -2497,30 +2502,26 @@ select[aria-invalid="true"] {
   border: 1px solid var(--line);
 }
 .ws-bracket {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  position: relative;
   margin: 0 0 12px;
+  padding-bottom: 16px;
   font-size: 13px;
   font-weight: 750;
   color: var(--text);
   text-align: center;
+  text-wrap: balance;
 }
-.ws-bracket::before,
+/* one bracket across the whole scale, under its label (a label between two lines left only two ticks at 390) */
 .ws-bracket::after {
   content: "";
-  flex: 1;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   height: 10px;
   border: 2px solid var(--il-ink);
   border-bottom: 0;
-}
-.ws-bracket::before {
-  border-right: 0;
-  border-radius: 6px 0 0;
-}
-.ws-bracket::after {
-  border-left: 0;
-  border-radius: 0 6px 0 0;
+  border-radius: 6px 6px 0 0;
 }
 .ws-bar {
   display: grid;
@@ -2727,6 +2728,14 @@ select[aria-invalid="true"] {
 .tc-taqaud .tool-name {
   justify-self: start;
 }
+[lang="ar"] {
+  font-family: "IBM Plex Sans Arabic", var(--font);
+  font-weight: 600;
+}
+.rail [lang="ar"] {
+  font-size: 15px;
+  white-space: nowrap;
+}
 .tc-taqaud .tool-desc {
   color: rgba(255, 255, 255, 0.82);
 }
@@ -2792,6 +2801,26 @@ select[aria-invalid="true"] {
 .site-footer .wordmark {
   font-size: 20px;
 }
+.footer-brand .by {
+  margin-top: 14px;
+}
+.by-loopnode {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-weight: 650;
+  text-decoration: none;
+}
+.by-loopnode:hover {
+  color: var(--lime);
+  text-decoration: underline;
+}
+.ln-mark {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
 .footer-brand p {
   margin: 10px 0 0;
   font-size: 15px;
@@ -2826,6 +2855,10 @@ select[aria-invalid="true"] {
 }
 body.has-bar .site-footer {
   padding-bottom: 72px;
+}
+/* while the bar is up, keyboard focus and scrollIntoView keep fields clear of it */
+:root:has(body.has-bar) {
+  scroll-padding-bottom: 104px;
 }
 
 /* ---- About / Privacy / Contact: a teal page hero, then cards */
@@ -2931,8 +2964,9 @@ body.has-bar .site-footer {
 }
 .flow {
   display: grid;
+  grid-template-rows: 1fr auto 1fr;
   gap: 10px;
-  align-items: center;
+  align-items: stretch;
   max-width: 760px;
   margin: 0;
   padding: 18px;
@@ -2967,9 +3001,11 @@ body.has-bar .site-footer {
 .flow-node span {
   font-size: 13.5px;
   color: var(--muted);
+  text-wrap: balance;
 }
 .flow-link {
   display: flex;
+  align-self: center;
   align-items: center;
   justify-content: center;
   gap: 8px;
@@ -3092,7 +3128,20 @@ body.has-bar .site-footer {
   }
   .flow {
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-rows: none;
     padding: 22px;
+  }
+  .counts-col {
+    padding: 18px;
+  }
+  .alert .va-trap {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+  .alert .va-trap .va-arrow {
+    margin-left: 0;
+    transform: none;
   }
   .flow-link {
     flex-direction: column;
